@@ -1,8 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const DashboardScreen = () => {
+  const [operationCal, setOperationCal] = useState('');
+
+  const onPressBtnNumber = (text) => {
+    if (text === '=') {
+      return calculateResult();
+    }
+
+    setOperationCal(operationCal + text);
+  };
+
+  const calculateResult = () => {
+    const text = operationCal;
+  };
+
   let numbers = [
     [1, 2, 3],
     [4, 5, 6],
@@ -15,7 +29,9 @@ const DashboardScreen = () => {
     let rows = [];
     for (let j = 0; j < 3; j++) {
       rows.push(
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity
+          onPress={() => onPressBtnNumber(numbers[i][j])}
+          style={styles.btn}>
           <Text style={styles.textBtn}>{numbers[i][j]}</Text>
         </TouchableOpacity>,
       );
@@ -23,12 +39,27 @@ const DashboardScreen = () => {
     rowNumber.push(<View style={styles.rowNumber}>{rows}</View>);
   }
 
-  let operation = ['+', '-', '*', '/'];
+  const onPressBtnOpt = (operation) => {
+    switch (operation) {
+      case 'Del':
+        let text = operationCal.split('');
+        text.pop();
+        setOperationCal(text.join(''));
+
+        break;
+      default:
+        break;
+    }
+  };
+
+  let operation = ['Del', '+', '-', '*', '/'];
   let operationSign = [];
 
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 5; i++) {
     operationSign.push(
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity
+        onPress={() => onPressBtnOpt(operation[i])}
+        style={styles.btn}>
         <Text style={styles.textBtn}>{operation[i]}</Text>
       </TouchableOpacity>,
     );
@@ -37,7 +68,7 @@ const DashboardScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.operationCal}>
-        <Text style={styles.textOperationCal}>11*11</Text>
+        <Text style={styles.textOperationCal}>{operationCal}</Text>
       </View>
 
       <View style={styles.resultCal}>
