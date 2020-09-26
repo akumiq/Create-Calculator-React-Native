@@ -5,18 +5,6 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 const DashboardScreen = () => {
   const [operationCal, setOperationCal] = useState('');
 
-  const onPressBtnNumber = (text) => {
-    if (text === '=') {
-      return calculateResult();
-    }
-
-    setOperationCal(operationCal + text);
-  };
-
-  const calculateResult = () => {
-    const text = operationCal;
-  };
-
   let numbers = [
     [1, 2, 3],
     [4, 5, 6],
@@ -39,7 +27,32 @@ const DashboardScreen = () => {
     rowNumber.push(<View style={styles.rowNumber}>{rows}</View>);
   }
 
-  const onPressBtnOpt = (operation) => {
+  const onPressBtnNumber = (text) => {
+    if (text === '=') {
+      return calculateResult();
+    }
+
+    setOperationCal(operationCal + text);
+  };
+
+  const calculateResult = () => {
+    const text = operationCal;
+  };
+
+  let operations = ['Del', '+', '-', '*', '/'];
+  let operationSign = [];
+
+  for (let i = 0; i < 5; i++) {
+    operationSign.push(
+      <TouchableOpacity
+        onPress={() => onPressBtnOperation(operations[i])}
+        style={styles.btn}>
+        <Text style={styles.textBtn}>{operations[i]}</Text>
+      </TouchableOpacity>,
+    );
+  }
+
+  const onPressBtnOperation = (operation) => {
     switch (operation) {
       case 'Del':
         let text = operationCal.split('');
@@ -47,23 +60,22 @@ const DashboardScreen = () => {
         setOperationCal(text.join(''));
 
         break;
+      case '+':
+      case '-':
+      case '*':
+      case '/':
+        const lastChar = operationCal.split('').pop();
+
+        if (operations.indexOf(lastChar) === -1) {
+          console.log('operation');
+          return setOperationCal(operationCal + operation);
+        }
+
+        break;
       default:
         break;
     }
   };
-
-  let operation = ['Del', '+', '-', '*', '/'];
-  let operationSign = [];
-
-  for (let i = 0; i < 5; i++) {
-    operationSign.push(
-      <TouchableOpacity
-        onPress={() => onPressBtnOpt(operation[i])}
-        style={styles.btn}>
-        <Text style={styles.textBtn}>{operation[i]}</Text>
-      </TouchableOpacity>,
-    );
-  }
 
   return (
     <View style={styles.container}>
