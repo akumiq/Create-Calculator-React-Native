@@ -4,6 +4,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 const DashboardScreen = () => {
   const [operationCal, setOperationCal] = useState('');
+  const [resultCal, setResultCal] = useState('');
 
   let numbers = [
     [1, 2, 3],
@@ -18,6 +19,7 @@ const DashboardScreen = () => {
     for (let j = 0; j < 3; j++) {
       rows.push(
         <TouchableOpacity
+          key={numbers[i][j]}
           onPress={() => onPressBtnNumber(numbers[i][j])}
           style={styles.btn}>
           <Text style={styles.textBtn}>{numbers[i][j]}</Text>
@@ -29,7 +31,7 @@ const DashboardScreen = () => {
 
   const onPressBtnNumber = (text) => {
     if (text === '=') {
-      return calculateResult();
+      return validateOperation() && calculateResult();
     }
 
     setOperationCal(operationCal + text);
@@ -37,6 +39,21 @@ const DashboardScreen = () => {
 
   const calculateResult = () => {
     const text = operationCal;
+    // eslint-disable-next-line no-eval
+    setResultCal(eval(text));
+  };
+
+  const validateOperation = () => {
+    const text = operationCal;
+    switch (text.slice(-1)) {
+      case '+':
+      case '-':
+      case '*':
+      case '/':
+        return false;
+    }
+
+    return true;
   };
 
   let operations = ['Del', '+', '-', '*', '/'];
@@ -45,6 +62,7 @@ const DashboardScreen = () => {
   for (let i = 0; i < 5; i++) {
     operationSign.push(
       <TouchableOpacity
+        key={operations[i]}
         onPress={() => onPressBtnOperation(operations[i])}
         style={styles.btn}>
         <Text style={styles.textBtn}>{operations[i]}</Text>
@@ -84,7 +102,7 @@ const DashboardScreen = () => {
       </View>
 
       <View style={styles.resultCal}>
-        <Text style={styles.textResultCal}>121</Text>
+        <Text style={styles.textResultCal}>{resultCal}</Text>
       </View>
 
       <View style={styles.wrapperButtons}>
