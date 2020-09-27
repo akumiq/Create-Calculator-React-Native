@@ -7,10 +7,10 @@ const DashboardScreen = () => {
   const [resultCal, setResultCal] = useState('');
 
   let numbers = [
-    [1, 2, 3],
-    [4, 5, 6],
     [7, 8, 9],
-    ['.', 0, '='],
+    [4, 5, 6],
+    [1, 2, 3],
+    [0, '.', '='],
   ];
   let rowNumber = [];
 
@@ -26,7 +26,11 @@ const DashboardScreen = () => {
         </TouchableOpacity>,
       );
     }
-    rowNumber.push(<View style={styles.rowNumber}>{rows}</View>);
+    rowNumber.push(
+      <View key={i} style={styles.rowNumber}>
+        {rows}
+      </View>,
+    );
   }
 
   const onPressBtnNumber = (text) => {
@@ -122,31 +126,33 @@ const styles = EStyleSheet.create({
   },
   operationCal: {
     flex: 2,
-    backgroundColor: 'red',
+    backgroundColor: '#ffffff',
     justifyContent: 'center',
     alignItems: 'flex-end',
     paddingRight: '10rem',
   },
   textOperationCal: {
-    fontSize: '30rem',
+    fontSize: '50rem',
+    color: '#222222',
   },
   resultCal: {
     flex: 1,
-    backgroundColor: 'green',
+    backgroundColor: '#ffffff',
     justifyContent: 'center',
     alignItems: 'flex-end',
     paddingRight: '10rem',
   },
   textResultCal: {
-    fontSize: '20rem',
+    fontSize: '35rem',
+    color: '#636363',
   },
   wrapperButtons: {
-    flex: 7,
+    flex: 6,
     flexDirection: 'row',
   },
   numberCal: {
     flex: 3,
-    backgroundColor: 'yellow',
+    backgroundColor: '#434343',
   },
   rowNumber: {
     flex: 1,
@@ -161,12 +167,13 @@ const styles = EStyleSheet.create({
   },
   textBtn: {
     fontSize: '25rem',
+    color: '#ffffff',
     paddingVertical: '10rem',
     paddingHorizontal: '20rem',
   },
   operationSign: {
     flex: 1,
-    backgroundColor: 'grey',
+    backgroundColor: '#636363',
     justifyContent: 'space-around',
     alignItems: 'center',
   },
