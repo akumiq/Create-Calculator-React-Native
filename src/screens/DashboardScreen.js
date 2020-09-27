@@ -34,6 +34,10 @@ const DashboardScreen = () => {
   }
 
   const onPressBtnNumber = (text) => {
+    if (text === '.') {
+      return validateDot(text);
+    }
+
     if (text === '=') {
       return validateOperation() && calculateResult();
     }
@@ -41,10 +45,11 @@ const DashboardScreen = () => {
     setOperationCal(operationCal + text);
   };
 
-  const calculateResult = () => {
-    const text = operationCal;
-    // eslint-disable-next-line no-eval
-    setResultCal(eval(text));
+  const validateDot = (text) => {
+    let dot = operationCal;
+    if (dot.slice(-1) !== '.') {
+      setOperationCal(operationCal + text);
+    }
   };
 
   const validateOperation = () => {
@@ -58,6 +63,12 @@ const DashboardScreen = () => {
     }
 
     return true;
+  };
+
+  const calculateResult = () => {
+    const text = operationCal;
+    // eslint-disable-next-line no-eval
+    setResultCal(eval(text));
   };
 
   let operations = ['Del', '+', '-', '*', '/'];
@@ -89,7 +100,6 @@ const DashboardScreen = () => {
         const lastChar = operationCal.split('').pop();
 
         if (operations.indexOf(lastChar) === -1) {
-          console.log('operation');
           return setOperationCal(operationCal + operation);
         }
 
