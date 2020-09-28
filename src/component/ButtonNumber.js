@@ -6,9 +6,7 @@ const ButtonNumber = (props) => {
   const {onHandlePress, textButtons} = props;
 
   return (
-    <TouchableOpacity
-      onPress={() => onHandlePress(textButtons)}
-      style={styles.container}>
+    <TouchableOpacity onPress={onHandlePress} style={styles.container}>
       <Text style={styles.textButtons}>{textButtons}</Text>
     </TouchableOpacity>
   );

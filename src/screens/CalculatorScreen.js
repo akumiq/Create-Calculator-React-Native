@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StatusBar, View, Text} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import ButtonNumber from '../component/ButtonNumber';
 
 const CalculatorScreen = () => {
+  const [displayValue, setDisplayValue] = useState('0');
+
   const buttons = [
     ['CLEAR', 'DEL'],
     ['7', '8', '9', '*'],
@@ -16,7 +18,13 @@ const CalculatorScreen = () => {
   const RenderButton = () => {
     let layoutButton = buttons.map((buttonRow, indexRow) => {
       let rowItem = buttonRow.map((buttonItem, indexItem) => {
-        return <ButtonNumber key={indexItem} textButtons={buttonItem} />;
+        return (
+          <ButtonNumber
+            key={indexItem}
+            textButtons={buttonItem}
+            onHandlePress={() => OnPressButton(buttonItem)}
+          />
+        );
       });
 
       return (
@@ -29,6 +37,23 @@ const CalculatorScreen = () => {
     return layoutButton;
   };
 
+  const OnPressButton = (input) => {
+    switch (input) {
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+        setDisplayValue(displayValue === '0' ? input : displayValue + input);
+        break;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar
@@ -38,7 +63,7 @@ const CalculatorScreen = () => {
       />
 
       <View style={styles.wrapperResult}>
-        <Text style={styles.textResult}>0</Text>
+        <Text style={styles.textResult}>{displayValue}</Text>
       </View>
 
       <View style={styles.wrapperContent}>
@@ -61,7 +86,6 @@ const styles = EStyleSheet.create({
   },
   textResult: {
     fontSize: '80rem',
-    fontWeight: 'bold',
     color: '#ffffff',
     textAlign: 'right',
     paddingRight: '10rem',
