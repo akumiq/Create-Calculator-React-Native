@@ -6,6 +6,7 @@ import ButtonNumber from '../component/ButtonNumber';
 
 const CalculatorScreen = () => {
   const [displayValue, setDisplayValue] = useState('0');
+  const [operator, setOperator] = useState(null);
 
   const buttons = [
     ['CLEAR', 'DEL'],
@@ -50,6 +51,17 @@ const CalculatorScreen = () => {
       case '8':
       case '9':
         setDisplayValue(displayValue === '0' ? input : displayValue + input);
+        break;
+      case '*':
+      case '/':
+      case '+':
+      case '-':
+        setOperator(input);
+        setDisplayValue(
+          (operator !== null
+            ? displayValue.substr(0, displayValue.length - 1)
+            : displayValue) + input,
+        );
         break;
     }
   };
