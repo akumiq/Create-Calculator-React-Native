@@ -40,6 +40,10 @@ const CalculatorScreen = () => {
 
   const OnPressButton = (input) => {
     switch (input) {
+      case 'CLEAR':
+        setDisplayValue('0');
+        setOperator(null);
+        break;
       case '0':
       case '1':
       case '2':
