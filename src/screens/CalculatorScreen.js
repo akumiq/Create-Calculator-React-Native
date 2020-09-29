@@ -10,7 +10,7 @@ const CalculatorScreen = () => {
 
   const buttons = [
     ['CLEAR', 'DEL'],
-    ['7', '8', '9', '*'],
+    ['7', '8', '9', 'x'],
     ['4', '5', '6', '/'],
     ['1', '2', '3', '+'],
     ['0', '.', '=', '-'],
@@ -52,7 +52,13 @@ const CalculatorScreen = () => {
       case '9':
         setDisplayValue(displayValue === '0' ? input : displayValue + input);
         break;
-      case '*':
+      case '.':
+        let dot = displayValue;
+        if (dot.slice(-1) !== '.') {
+          setDisplayValue(displayValue + input);
+        }
+        break;
+      case 'x':
       case '/':
       case '+':
       case '-':
