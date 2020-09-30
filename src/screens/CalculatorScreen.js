@@ -44,6 +44,11 @@ const CalculatorScreen = () => {
         setDisplayValue('0');
         setOperator(null);
         break;
+      case 'DEL':
+        let text = displayValue.split('');
+        text.pop();
+        setDisplayValue(displayValue.length === 1 ? '0' : text.join(''));
+        break;
       case '0':
       case '1':
       case '2':
