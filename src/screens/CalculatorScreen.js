@@ -7,10 +7,13 @@ import ButtonNumber from '../component/ButtonNumber';
 const CalculatorScreen = () => {
   const [displayValue, setDisplayValue] = useState('0');
   const [operator, setOperator] = useState(null);
+  const [firstValue, setFirstValue] = useState('');
+  const [secondValue, setSecondValue] = useState('');
+  const [nextValue, setNextValue] = useState(false);
 
   const buttons = [
     ['CLEAR', 'DEL'],
-    ['7', '8', '9', 'x'],
+    ['7', '8', '9', '*'],
     ['4', '5', '6', '/'],
     ['1', '2', '3', '+'],
     ['0', '.', '=', '-'],
@@ -60,17 +63,39 @@ const CalculatorScreen = () => {
       case '8':
       case '9':
         setDisplayValue(displayValue === '0' ? input : displayValue + input);
+
+        if (!nextValue) {
+          setFirstValue(firstValue + input);
+        } else {
+          setSecondValue(secondValue + input);
+        }
         break;
       case '.':
         let dot = displayValue;
         if (dot.slice(-1) !== '.') {
           setDisplayValue(displayValue + input);
         }
+
+        if (!nextValue) {
+          setFirstValue(firstValue + input);
+        } else {
+          setSecondValue(secondValue + input);
+        }
         break;
-      case 'x':
-      case '/':
+      case '=':
+        // eslint-disable-next-line no-eval
+        let result = eval(firstValue + operator + secondValue);
+        setDisplayValue(result);
+        setOperator(null);
+        setFirstValue('');
+        setSecondValue('');
+        setNextValue(false);
+        break;
       case '+':
       case '-':
+      case '*':
+      case '/':
+        setNextValue(true);
         setOperator(input);
         setDisplayValue(
           (operator !== null
