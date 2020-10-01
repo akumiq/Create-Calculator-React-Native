@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StatusBar} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import ActionButton from '../component/ActionButton';
@@ -95,6 +95,7 @@ const DashboardScreen = () => {
         let text = operationCal.split('');
         text.pop();
         setOperationCal(text.join(''));
+        setResultCal('');
 
         break;
       case '+':
@@ -115,12 +116,32 @@ const DashboardScreen = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar
+        translucent
+        barStyle="dark-content"
+        backgroundColor="#ffffff"
+      />
+
       <View style={styles.operationCal}>
         <Text style={styles.textOperationCal}>{operationCal}</Text>
       </View>
 
       <View style={styles.resultCal}>
         <Text style={styles.textResultCal}>{resultCal}</Text>
+      </View>
+
+      <View style={styles.wrapperClear}>
+        <ActionButton
+          styleBtn={styles.buttonClear}
+          textBtn="CLEAR"
+          styleText={styles.textClear}
+        />
+
+        <ActionButton
+          styleBtn={styles.buttonClear}
+          textBtn="DEL"
+          styleText={styles.textClear}
+        />
       </View>
 
       <View style={styles.wrapperButtons}>
@@ -146,7 +167,7 @@ const styles = EStyleSheet.create({
     paddingRight: '10rem',
   },
   textOperationCal: {
-    fontSize: '50rem',
+    fontSize: '70rem',
     color: '#222222',
   },
   resultCal: {
@@ -157,8 +178,24 @@ const styles = EStyleSheet.create({
     paddingRight: '10rem',
   },
   textResultCal: {
-    fontSize: '35rem',
+    fontSize: '50rem',
     color: '#636363',
+  },
+  wrapperClear: {
+    flex: 1,
+    backgroundColor: '#434343',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  buttonClear: {
+    flexDirection: 'row',
+    paddingVertical: '10rem',
+    paddingHorizontal: '40rem',
+  },
+  textClear: {
+    fontSize: '25rem',
+    color: '#ffffff',
   },
   wrapperButtons: {
     flex: 6,
@@ -187,7 +224,7 @@ const styles = EStyleSheet.create({
   },
   operationSign: {
     flex: 1,
-    backgroundColor: '#636363',
+    backgroundColor: '#434343',
     justifyContent: 'space-around',
     alignItems: 'center',
   },
