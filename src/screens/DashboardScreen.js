@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import {View, Text} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+
+import ActionButton from '../component/ActionButton';
 
 const DashboardScreen = () => {
   const [operationCal, setOperationCal] = useState('');
@@ -18,12 +20,13 @@ const DashboardScreen = () => {
     let rows = [];
     for (let j = 0; j < 3; j++) {
       rows.push(
-        <TouchableOpacity
+        <ActionButton
           key={numbers[i][j]}
           onPress={() => onPressBtnNumber(numbers[i][j])}
-          style={styles.btn}>
-          <Text style={styles.textBtn}>{numbers[i][j]}</Text>
-        </TouchableOpacity>,
+          styleBtn={styles.btn}
+          textBtn={numbers[i][j]}
+          styleText={styles.textBtn}
+        />,
       );
     }
     rowNumber.push(
@@ -76,12 +79,13 @@ const DashboardScreen = () => {
 
   for (let i = 0; i < 5; i++) {
     operationSign.push(
-      <TouchableOpacity
+      <ActionButton
         key={operations[i]}
         onPress={() => onPressBtnOperation(operations[i])}
-        style={styles.btn}>
-        <Text style={styles.textBtn}>{operations[i]}</Text>
-      </TouchableOpacity>,
+        styleBtn={styles.btn}
+        textBtn={operations[i]}
+        styleText={styles.textBtn}
+      />,
     );
   }
 
