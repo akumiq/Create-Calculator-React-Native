@@ -3,6 +3,7 @@ import {View, Text, StatusBar} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import ActionButton from '../component/ActionButton';
+import DeleteComponent from '../component/DeleteComponent';
 
 const DashboardScreen = () => {
   const [operationCal, setOperationCal] = useState('');
@@ -135,21 +136,10 @@ const DashboardScreen = () => {
         <Text style={styles.textResultCal}>{resultCal}</Text>
       </View>
 
-      <View style={styles.wrapperClear}>
-        <ActionButton
-          onPress={() => onPressClear()}
-          styleBtn={styles.buttonClear}
-          textBtn="CLEAR"
-          styleText={styles.textClear}
-        />
-
-        <ActionButton
-          onPress={() => onPressDel()}
-          styleBtn={styles.buttonClear}
-          textBtn="DEL"
-          styleText={styles.textClear}
-        />
-      </View>
+      <DeleteComponent
+        buttonClear={() => onPressClear()}
+        buttonDelete={() => onPressDel()}
+      />
 
       <View style={styles.wrapperButtons}>
         <View style={styles.numberCal}>{rowNumber}</View>
@@ -187,22 +177,6 @@ const styles = EStyleSheet.create({
   textResultCal: {
     fontSize: '50rem',
     color: '#636363',
-  },
-  wrapperClear: {
-    flex: 1,
-    backgroundColor: '#434343',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  buttonClear: {
-    flexDirection: 'row',
-    paddingVertical: '10rem',
-    paddingHorizontal: '40rem',
-  },
-  textClear: {
-    fontSize: '25rem',
-    color: '#ffffff',
   },
   wrapperButtons: {
     flex: 6,
