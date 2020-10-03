@@ -107,6 +107,11 @@ const DashboardScreen = () => {
     }
   };
 
+  const onPressClear = () => {
+    setOperationCal('');
+    setResultCal('');
+  };
+
   const onPressDel = () => {
     let text = operationCal.split('');
     text.pop();
@@ -132,6 +137,7 @@ const DashboardScreen = () => {
 
       <View style={styles.wrapperClear}>
         <ActionButton
+          onPress={() => onPressClear()}
           styleBtn={styles.buttonClear}
           textBtn="CLEAR"
           styleText={styles.textClear}
