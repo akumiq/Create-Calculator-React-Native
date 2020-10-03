@@ -74,10 +74,10 @@ const DashboardScreen = () => {
     setResultCal(eval(text));
   };
 
-  let operations = ['Del', '+', '-', '*', '/'];
+  let operations = ['+', '-', '*', '/'];
   let operationSign = [];
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 4; i++) {
     operationSign.push(
       <ActionButton
         key={operations[i]}
@@ -91,13 +91,6 @@ const DashboardScreen = () => {
 
   const onPressBtnOperation = (operation) => {
     switch (operation) {
-      case 'Del':
-        let text = operationCal.split('');
-        text.pop();
-        setOperationCal(text.join(''));
-        setResultCal('');
-
-        break;
       case '+':
       case '-':
       case '*':
@@ -112,6 +105,13 @@ const DashboardScreen = () => {
       default:
         break;
     }
+  };
+
+  const onPressDel = () => {
+    let text = operationCal.split('');
+    text.pop();
+    setOperationCal(text.join(''));
+    setResultCal('');
   };
 
   return (
@@ -138,6 +138,7 @@ const DashboardScreen = () => {
         />
 
         <ActionButton
+          onPress={() => onPressDel()}
           styleBtn={styles.buttonClear}
           textBtn="DEL"
           styleText={styles.textClear}
